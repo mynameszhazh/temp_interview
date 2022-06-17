@@ -1,20 +1,19 @@
 import { Inject, Controller, Post, Body } from '@midwayjs/decorator';
-import { Context } from '@midwayjs/koa';
+// import { Validate } from '@midwayjs/validate';
 import { UserModel } from '../model/user.model';
+import { Context } from '@midwayjs/koa';
 import { UserLoginDTO } from '../dto/user.dto';
 
 @Controller('/api')
 export class UserController {
-  @Inject()
-  ctx: Context;
 
-  @Inject()
-  UserModel: UserModel;
+  @Inject() 
+  ctx: Context
 
-  @Post('/api/user/login')
+  @Post('/user/login')
+  // @Validate()
   async getUser(@Body() user: UserLoginDTO ) {
-    const result = await this.UserModel.getUserByUsernameAndPassword(user.username, user.password);
-    console.log(result, 151515)
+    const result = await new UserModel().getUserByUsernameAndPassword(user.username, user.password);
     if(result) {
       return {
         code: 200,

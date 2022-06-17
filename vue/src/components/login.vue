@@ -39,6 +39,10 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
+import { message } from "ant-design-vue";
+import axios from "axios";
+const router = useRouter();
 
 interface FormState {
   username: string;
@@ -52,15 +56,35 @@ const formState = reactive<FormState>({
 });
 const onFinish = (values: FormState) => {
   console.log("Success:", values);
-  fetch('/api', {
-    method: 'get',
-    // body: JSON.stringify(values)
-    mode:'cors'
-  }).then(res => {
-    console.log(res, 59)
-  }).catch(err => {
-    console.log(err, '61 err')
-  })
+  // fetch('/api/user/login', {
+  //   method: 'post',
+  //   body: JSON.stringify(values),
+  // }).then(res => {
+  //   console.log(res, 59)
+  // }).catch(err => {
+  //   console.log(err, '61 err')
+  // })
+  axios
+    .post("/api/user/login", values)
+    .then((res: any) => {
+      if (res.data.code == 200) {
+        console.log(res.data.data.token, 'this is my token');
+        message.success(res.data.message);
+        // message.success(res.data.message);
+        router.push({
+          path: "/main",
+          // params: {
+          //   token: res.data.data.token,
+          // },
+        });
+      } else {
+        message.error(res.data.message);
+      }
+    })
+    .catch((err) => {
+      console.log(err, "61 err");
+      message.error(err);
+    });
 };
 
 // const onFinishFailed = (errorInfo: any) => {
@@ -69,7 +93,7 @@ const onFinish = (values: FormState) => {
 </script>
 
 <style scoped>
-.login{
+.login {
   width: 100%;
   height: 100vh;
   background-color: #ccc;
