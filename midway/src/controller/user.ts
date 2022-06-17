@@ -1,5 +1,5 @@
 import { Inject, Controller, Post, Body } from '@midwayjs/decorator';
-// import { Validate } from '@midwayjs/validate';
+import { Validate } from '@midwayjs/validate';
 import { JwtService } from '@midwayjs/jwt';
 // const jwt = require('jsonwebtoken');
 import { UserModel } from '../model/user.model';
@@ -15,7 +15,7 @@ export class UserController {
   jwtService: JwtService;
 
   @Post('/user/login')
-  // @Validate()
+  @Validate() // todo 暂时无法验证效果
   async getUser(@Body() user: UserLoginDTO) {
     const result = await new UserModel().getUserByUsernameAndPassword(
       user.username,
