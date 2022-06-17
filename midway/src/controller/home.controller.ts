@@ -6,4 +6,8 @@ export class HomeController {
   async home(): Promise<string> {
     return 'Hello Midwayjs!';
   }
+  @Get('/login')
+  async login(): Promise<string> {
+    return 'login!';
+  }
 }
