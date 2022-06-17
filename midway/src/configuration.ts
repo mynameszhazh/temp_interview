@@ -2,6 +2,7 @@ import { Configuration, App } from '@midwayjs/decorator';
 
 import * as koa from '@midwayjs/koa';
 import * as validate from '@midwayjs/validate';
+import * as jwt from '@midwayjs/jwt';
 import * as info from '@midwayjs/info';
 import { join } from 'path';
 
@@ -14,6 +15,7 @@ import { ReportMiddleware } from './middleware/report.middleware';
   imports: [
     koa,
     validate,
+    jwt,
     {
       component: info,
       enabledEnvironment: ['local'],

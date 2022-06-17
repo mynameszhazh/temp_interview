@@ -6,4 +6,8 @@ export default {
   koa: {
     port: 7001,
   },
+  jwt: {
+    secret: 'xjh', // fs.readFileSync('xxxxx.key')
+    expiresIn: '2d', // https://github.com/vercel/ms
+  },
 } as MidwayConfig;
