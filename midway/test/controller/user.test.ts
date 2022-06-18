@@ -2,7 +2,7 @@ import { createApp, close, createHttpRequest } from '@midwayjs/mock';
 import { Framework, Application  } from '@midwayjs/koa';
 import * as assert from 'assert';
 
-// todo 存在很多的问题
+// todo 超时的测试还没弄
 describe('test/controller/test.user.ts', () => {
 
   let app: Application;
@@ -31,7 +31,7 @@ describe('test/controller/test.user.ts', () => {
     const result = await createHttpRequest(app)
       .post('/api/user/login')
       .send({ username: 'jack', password: "redballoon" });
-
+    // console.log(result.body)
     // use expect by jest
     expect(result.status).toBe(200);
 
@@ -44,9 +44,8 @@ describe('test/controller/test.user.ts', () => {
     const result = await createHttpRequest(app)
       .post('/api/user/login')
       .send({ username: 'jack2', password: "redballoon" });
-
     // use expect by jest
-    expect(result.status).toBe(200);
+    expect(result.body.code).toBe(400);
 
   });
 
@@ -58,10 +57,8 @@ describe('test/controller/test.user.ts', () => {
       .post('/api/user/login1') // 错误地址
       .send({ username: 'jack', password: "redballoon" });
 
-      console.log(result, 'login1')
-
     // use expect by jest
-    expect(result.status).toBe(302);
+    expect(result.status).toBe(302); // 这是判断为空码?
   });
   
 
@@ -73,9 +70,9 @@ describe('test/controller/test.user.ts', () => {
       .post('/api/user/login') // 错误地址
       .send({ username: '', password: "redballoon" });
 
-      console.log(result, 'jack = null')
+      // console.log(result.body, 'jack = null')
     // use expect by jest
     // expect(result.status).toBe(422);
-    assert.deepStrictEqual(result.status, 200);
+    assert.deepStrictEqual(result.body.status, 422);
   });
 });
