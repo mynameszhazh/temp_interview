@@ -15,7 +15,7 @@ export class UserController {
   jwtService: JwtService;
 
   @Post('/user/login')
-  @Validate() // todo 暂时无法验证效果
+  @Validate() // todo 暂时没有验证效果
   async getUser(@Body() user: UserLoginDTO) {
     const result = await new UserModel().getUserByUsernameAndPassword(
       user.username,
