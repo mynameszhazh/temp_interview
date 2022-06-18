@@ -2,9 +2,12 @@
 Temporary use for interview
 
 ## midware
-- `cd midware`
-- `npm i`
-- `npm run dev`
+- 运行
+  - `cd midware`
+  - `npm i`
+  - `npm run dev`
+- 测试
+  - `npm run test`
 
 ## vue
 - `cd vue`
