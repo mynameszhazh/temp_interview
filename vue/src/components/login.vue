@@ -12,8 +12,8 @@
         <a-form-item
           label="Username"
           name="username"
-          :rules="[{ required: true, message: 'Please input your username!' }]"
         >
+          <!-- :rules="[{ required: true, message: 'Please input your username!' }]" -->
           <a-input v-model:value="formState.username" />
         </a-form-item>
 
